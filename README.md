@@ -1,3 +1,1 @@
-# Repositorio practicas 
-
-##Este repositorio es para mis practicas
+#Este repositorio es para la pagina delitos informaticos
