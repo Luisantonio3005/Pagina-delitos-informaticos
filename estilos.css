@@ -70,22 +70,55 @@ ul {
 
 footer {
     text-align: center;
-    padding: 20px;
     background-color: #635DFF;
     color: #F7F7F7;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 address a {
     color: #FFD369;
     text-decoration: none;
 }
+#fuentes-informacion a {
+    color: red;
+}
 
+#contacto a {
+    color: gold;
+}
 .intro-image {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 20px auto;
+    margin: auto;
+}
+.contacto{
+    color: #FFD369;
+    padding: 2px;
+}
+
+.contacto p {
+    margin: auto;
+    font-size: 0em;
+    color: #FFD369;
+}
+
+.contacto a {
+    color: #FFD369;
+}
+
+footer a {
+    color: gold;
+    text-decoration: none;
+    transition: color 0.3s, text-decoration 0.3s;
+    display: inline-block;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: red;
+    text-decoration: underline;
 }
 
 /* Responsive Design */
