@@ -1,58 +1,148 @@
+html, body {
+    overflow-x: hidden;
+}
+
+/* Secciones visibles por defecto si JS no está activo */
+section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+}
+
+/* Solo si JS está activo, aplica animación y ocultamiento inicial */
+body.js-enabled section {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+body.js-enabled section:nth-of-type(even):not(.is-visible) {
+    transform: translateX(100%);
+}
+body.js-enabled section.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Variables de color y animación */
+
+body.js-enabled footer {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+body.js-enabled footer.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+:root {
+    /* Colores para modo claro */
+    --bg-main: #f5f7fa;
+    --bg-section: #e3e8ff;
+    --bg-header: #3a0ca3;
+    /* Animaciones para movimiento */
+    --move-duration: 1.8s;
+    --move-ease: cubic-bezier(0.4, 0.2, 0.2, 1);
+    --bg-nav: #4361ee;
+    --bg-footer: #3a0ca3;
+    --text-main: #22223b;
+    --text-header: #fff;
+    --accent: #ffbe0b;
+    --accent-hover: #ff006e;
+    --link: #3a86ff;
+    --link-hover: #ff006e;
+    --border: #b5179e;
+    --contact-link: #ffbe0b;
+    --fuentes-link: #ff006e;
+    --footer-link: #ffbe0b;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-main: #18122b;
+        --bg-section: #22223b;
+        --bg-header: #3a0ca3;
+        --bg-nav: #4361ee;
+        --bg-footer: #3a0ca3;
+        --text-main: #f7f7f7;
+        --text-header: #fff;
+        --accent: #ffbe0b;
+        --accent-hover: #ff006e;
+        --link: #3a86ff;
+        --link-hover: #ff006e;
+        --border: #b5179e;
+        --contact-link: #ffbe0b;
+        --fuentes-link: #ff006e;
+        --footer-link: #ffbe0b;
+    }
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #18122B;
-    color: #F7F7F7;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background 0.4s, color 0.4s;
 }
 
 header {
-    background-color: #635DFF;
-    color: #F7F7F7;
+    background-color: var(--bg-header);
+    color: var(--text-header);
     padding: 1rem 0;
     text-align: center;
+    letter-spacing: 2px;
+    font-weight: bold;
+    box-shadow: 0 2px 12px rgba(58,12,163,0.15);
 }
 
 nav ul {
     list-style: none;
     padding: 0;
     text-align: center;
-    background-color: #393053;
+    background-color: var(--bg-nav);
     margin: 0;
+    box-shadow: 0 2px 8px rgba(67,97,238,0.10);
 }
 
 nav ul li {
     display: inline;
-    margin: 0 15px;
+    margin: 0 18px;
 }
 
 nav ul li a {
-    color: #FFD369;
+    color: var(--accent);
     text-decoration: none;
     padding: 10px 0;
     display: inline-block;
-    transition: color 0.2s;
+    font-weight: 500;
+    transition: color 0.2s, text-shadow 0.2s;
+    text-shadow: 0 1px 8px rgba(255,190,11,0.15);
 }
 
 nav ul li a:hover {
-    color: #FF6B6B;
+    color: var(--accent-hover);
+    text-shadow: 0 2px 12px rgba(255,0,110,0.18);
 }
 
 main {
-    padding: 20px;
+    padding: 24px;
     max-width: 1200px;
     margin: auto;
-    background-color: #22223B;
-    box-shadow: 0 0 10px rgba(99,93,255,0.15);
+    background-color: var(--bg-section);
+    box-shadow: 0 0 18px rgba(58,12,163,0.10);
+    border-radius: 12px;
+    transition: background 0.4s;
 }
 
 section {
-    margin-bottom: 30px;
-    padding: 20px;
-    border-bottom: 1px solid #393053;
-    background: rgba(99,93,255,0.05);
-    border-radius: 8px;
+    margin-bottom: 32px;
+    padding: 22px;
+    border-bottom: 2px solid var(--border);
+    background: rgba(67,97,238,0.07);
+    border-radius: 12px;
+    box-shadow: 0 1px 8px rgba(181,23,158,0.07);
 }
 
 section:last-of-type {
@@ -60,64 +150,87 @@ section:last-of-type {
 }
 
 h1, h2, h3 {
-    color: #FFD369;
+    color: var(--accent);
+    text-shadow: 0 1px 8px rgba(255,190,11,0.10);
 }
 
 ul {
     list-style: disc;
-    margin-left: 20px;
+    margin-left: 22px;
 }
 
 footer {
     text-align: center;
-    background-color: #635DFF;
-    color: #F7F7F7;
-    margin-top: 20px;
+    background-color: var(--bg-footer);
+    color: var(--text-header);
+    margin-top: 24px;
     margin-bottom: 20px;
+    padding: 16px 0;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 -2px 12px rgba(58,12,163,0.10);
 }
 
 address a {
-    color: #FFD369;
+    color: var(--contact-link);
     text-decoration: none;
 }
+
 #fuentes-informacion a {
-    color: red;
+    color: var(--fuentes-link);
 }
 
-#contacto a {
-    color: gold;
+#footer-contacto a {
+    color: var(--contact-link);
 }
+
 .intro-image {
     max-width: 100%;
     height: auto;
     display: block;
     margin: auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(58,12,163,0.18);
+    animation: floatY 3s ease-in-out infinite alternate;
+    transition: box-shadow 0.3s;
 }
-.contacto{
-    color: #FFD369;
+.intro-image:hover {
+    box-shadow: 0 8px 32px 4px rgba(255,0,110,0.18);
+    animation: floatX 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatY {
+    0% { transform: translateY(0);}
+    100% { transform: translateY(-18px);}
+}
+@keyframes floatX {
+    0% { transform: translateX(0);}
+    100% { transform: translateX(18px);}
+}
+
+.contacto {
+    color: var(--accent);
     padding: 2px;
 }
 
 .contacto p {
     margin: auto;
-    font-size: 0em;
-    color: #FFD369;
+    /* font-size: 0em; */ /* Esto oculta el texto, lo dejo comentado como en la última versión. Si quieres que se vea, bórralo. */
+    color: var(--accent);
 }
 
 .contacto a {
-    color: #FFD369;
+    color: var(--accent);
 }
 
 footer a {
-    color: gold;
+    color: var(--footer-link);
     text-decoration: none;
     transition: color 0.3s, text-decoration 0.3s;
     display: inline-block;
-    transition: color 0.2s;
 }
 
 footer a:hover {
-    color: red;
+    color: var(--link-hover);
     text-decoration: underline;
 }
 
