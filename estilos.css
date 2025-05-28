@@ -46,7 +46,8 @@ body {
   --border: #00e5ff; /* Azul neón para bordes (se mantiene para la estética general) */
 
   /* Duraciones y Easings de Animación */
-  --transition-duration: 0.8s;
+  --transition-duration: 0.8s; /* Duración para las secciones */
+  --footer-transition-duration: 1.5s; /* NUEVA: Duración más larga para el footer */
   --transition-ease: ease-out;
   --float-duration-y: 3s;
   --float-duration-x: 4s;
@@ -205,25 +206,6 @@ footer a:hover {
   text-shadow: 0 0 10px var(--link-bright); /* Sombra brillante */
 }
 
-/* ELIMINADO: Estilos específicos para la imagen de introducción, ahora la regla 'img' general los cubre */
-/*
-.intro-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 20px auto;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 229, 255, 0.18);
-  animation: floatY var(--float-duration-y) var(--float-ease) infinite alternate,
-             floatX var(--float-duration-x) var(--float-ease) infinite alternate;
-  transition: box-shadow 0.3s;
-}
-
-.intro-image:hover {
-  box-shadow: 0 8px 32px 4px rgba(0, 170, 255, 0.18);
-}
-*/
-
 /*
  * ========================================
  * Animaciones Keyframes
@@ -308,11 +290,17 @@ body:not(.js-ready) footer {
 
 /* Estilos de TRANSICIÓN para las secciones cuando JavaScript está activo */
 /* Estas transiciones controlarán la aparición suave de los elementos */
-body.js-ready section,
-body.js-ready footer {
+body.js-ready section {
   opacity: 0; /* Inicialmente oculto */
   transition: opacity var(--transition-duration) var(--transition-ease),
     transform var(--transition-duration) var(--transition-ease);
+}
+
+/* NUEVO: Estilos de TRANSICIÓN específicos para el footer */
+body.js-ready footer {
+  opacity: 0; /* Inicialmente oculto */
+  transition: opacity var(--footer-transition-duration) var(--transition-ease),
+    transform var(--footer-transition-duration) var(--transition-ease);
 }
 
 
@@ -336,7 +324,7 @@ body.js-ready section:nth-of-type(even).is-visible {
 body.js-ready footer.is-visible {
   opacity: 1;
   transform: translateY(0);
-  animation: fadeInUp var(--transition-duration) var(--transition-ease) forwards;
+  animation: fadeInUp var(--footer-transition-duration) var(--transition-ease) forwards;
 }
 
 /*
