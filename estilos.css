@@ -1,365 +1,384 @@
 /*
-  ========================================
-  Estilos Generales y Reseteos
-  ========================================
-*/
-html, body {
-    /* overflow-x: hidden; Esto es importante para evitar barras de scroll horizontales indeseadas */
-    overflow-x: hidden;
+ * ========================================
+ * Estilos Generales y Reseteos
+ * ========================================
+ */
+html,
+body {
+  /* overflow-x: hidden; Esto es importante para evitar barras de scroll horizontales indeseadas */
+  overflow-x: hidden;
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    transition: background 0.4s, color 0.4s;
-    /* Por defecto, las secciones no tendrán la animación de entrada si JS no está activo */
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background 0.4s, color 0.4s;
+  /* Por defecto, las secciones no tendrán la animación de entrada si JS no está activo */
 }
 
 /*
-  ========================================
-  Variables de Color y Animación
-  ========================================
-*/
+ * ========================================
+ * Variables de Color y Animación
+ * ========================================
+ */
 :root {
-    /* Colores para modo claro */
-    --bg-main: #f5f7fa;
-    --bg-section: #e3e8ff;
-    --bg-header: #3a0ca3;
-    --bg-nav: #4361ee;
-    --bg-footer: #3a0ca3;
-    --text-main: #22223b;
-    --text-header: #fff;
-    --accent: #ffbe0b;
-    --accent-hover: #ff006e;
-    --link: #3a86ff;
-    --link-hover: #ff006e;
-    --border: #b5179e;
-    --contact-link: #ffbe0b;
-    --fuentes-link: #ff006e;
-    --footer-link: #ffbe0b;
+  /* Colores para modo oscuro, como en la imagen */
+  --bg-main: #000000; /* Negro */
+  --bg-section: #0a0a0a; /* Un negro ligeramente más claro para secciones */
+  --bg-header: #000000; /* Negro */
+  --bg-nav: #000000; /* Negro */
+  --bg-footer: #000000; /* Negro */
+  --text-main: #e0f7fa; /* Azul neón claro para texto principal */
+  --text-header: #00e5ff; /* Azul neón brillante para el header (el título grande) */
+  --accent: #00e5ff; /* Azul neón brillante para acentos generales (títulos de sección, etc.) */
 
-    /* Duraciones y Easings de Animación */
-    --transition-duration: 0.8s;
-    --transition-ease: ease-out;
-    --float-duration-y: 3s;
-    --float-duration-x: 4s;
-    --float-ease: ease-in-out;
+  /* Colores para enlaces - ¡AJUSTADOS A BLANCO OPACO Y BLANCO BRILLANTE! */
+  --link-opaque: rgba(255, 255, 255, 0.5); /* Blanco opaco para el estado normal */
+  --link-bright: #ffffff; /* Blanco brillante para el hover */
+  --link-shadow-opaque: rgba(255, 255, 255, 0.08); /* Sombra tenue para el estado opaco */
+  --link-shadow-bright: rgba(255, 255, 255, 0.3); /* Sombra brillante para el estado hover */
+
+
+  --border: #00e5ff; /* Azul neón para bordes (se mantiene para la estética general) */
+
+  /* Duraciones y Easings de Animación */
+  --transition-duration: 0.8s;
+  --transition-ease: ease-out;
+  --float-duration-y: 3s;
+  --float-duration-x: 4s;
+  --float-ease: ease-in-out;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-main: #18122b;
-        --bg-section: #22223b;
-        --bg-header: #3a0ca3;
-        --bg-nav: #4361ee;
-        --bg-footer: #3a0ca3;
-        --text-main: #f7f7f7;
-        --text-header: #fff;
-        --accent: #ffbe0b;
-        --accent-hover: #ff006e;
-        --link: #3a86ff;
-        --link-hover: #ff006e;
-        --border: #b5179e;
-        --contact-link: #ffbe0b;
-        --fuentes-link: #ff006e;
-        --footer-link: #ffbe0b;
-    }
-}
+/* No necesitamos un media query para `prefers-color-scheme: dark` si los colores base ya son oscuros */
 
 /*
-  ========================================
-  Estilos de Layout y Componentes
-  ========================================
-*/
+ * ========================================
+ * Estilos de Layout y Componentes
+ * ========================================
+ */
 header {
-    background-color: var(--bg-header);
-    color: var(--text-header);
-    padding: 1rem 0;
-    text-align: center;
-    letter-spacing: 2px;
-    font-weight: bold;
-    box-shadow: 0 2px 12px rgba(58,12,163,0.15);
+  background-color: var(--bg-header);
+  color: var(--text-header); /* Se mantiene el azul neón brillante para el texto del header */
+  padding: 1rem 0;
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: bold;
+  box-shadow: 0 2px 12px rgba(0, 229, 255, 0.15); /* Sombra con color neón */
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-    background-color: var(--bg-nav);
-    margin: 0;
-    box-shadow: 0 2px 8px rgba(67,97,238,0.10);
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  background-color: var(--bg-nav);
+  margin: 0;
+  box-shadow: 0 2px 8px rgba(0, 229, 255, 0.1); /* Sombra con color neón */
 }
 
 nav ul li {
-    display: inline;
-    margin: 0 18px;
+  display: inline;
+  margin: 0 18px;
 }
 
+/* Estilos para enlaces del HEADER (NAVEGACIÓN) - AHORA BLANCO OPACO -> BLANCO BRILLANTE */
 nav ul li a {
-    color: var(--accent);
-    text-decoration: none;
-    padding: 10px 0;
-    display: inline-block;
-    font-weight: 500;
-    transition: color 0.2s, text-shadow 0.2s;
-    text-shadow: 0 1px 8px rgba(255,190,11,0.15);
+  color: var(--link-opaque); /* Blanco opaco */
+  text-decoration: none;
+  padding: 10px 0;
+  display: inline-block;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out; /* Transición suave */
+  text-shadow: 0 1px 8px var(--link-shadow-opaque); /* Sombra tenue */
 }
 
 nav ul li a:hover {
-    color: var(--accent-hover);
-    text-shadow: 0 2px 12px rgba(255,0,110,0.18);
+  color: var(--link-bright); /* Blanco brillante */
+  text-shadow: 0 2px 12px var(--link-shadow-bright); /* Sombra brillante */
 }
 
 main {
-    padding: 24px;
-    max-width: 1200px;
-    margin: auto;
-    background-color: var(--bg-section);
-    box-shadow: 0 0 18px rgba(58,12,163,0.10);
-    border-radius: 12px;
-    transition: background 0.4s;
+  padding: 24px;
+  max-width: 1200px;
+  margin: auto;
+  background-color: var(--bg-section);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.1); /* Sombra con color neón */
+  border-radius: 12px;
+  transition: background 0.4s;
 }
 
 section {
-    margin-bottom: 32px;
-    padding: 22px;
-    border-bottom: 2px solid var(--border);
-    background: rgba(67,97,238,0.07);
-    border-radius: 12px;
-    box-shadow: 0 1px 8px rgba(181,23,158,0.07);
+  margin-bottom: 32px;
+  padding: 22px;
+  border-bottom: 2px solid var(--border);
+  background: rgba(0, 229, 255, 0.07); /* Fondo ligeramente neón */
+  border-radius: 12px;
+  box-shadow: 0 1px 8px rgba(0, 229, 255, 0.07); /* Sombra con color neón */
 }
 
 img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: auto; 
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(58,12,163,0.18);
-    text-align: center;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 229, 255, 0.18); /* Sombra con color neón */
+  text-align: center;
 }
 section:last-of-type {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-h1, h2, h3 {
-    color: var(--accent);
-    text-shadow: 0 1px 8px rgba(255,190,11,0.10);
+h1,
+h2,
+h3 {
+  color: var(--accent); /* Se mantiene el color de acento azul neón para los títulos */
+  text-shadow: 0 1px 8px rgba(0, 229, 255, 0.1); /* Sombra de texto neón */
 }
 
 ul {
-    list-style: disc;
-    margin-left: 22px;
+  list-style: disc;
+  margin-left: 22px;
 }
 
 footer {
-    text-align: center;
-    background-color: var(--bg-footer);
-    color: var(--text-header);
-    margin-top: 24px;
-    margin-bottom: 20px;
-    padding: 16px 0;
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 -2px 12px rgba(58,12,163,0.10);
+  text-align: center;
+  background-color: var(--bg-footer);
+  color: var(--text-header); /* El texto general del footer puede ser azul neón brillante o el blanco opaco */
+  margin-top: 24px;
+  margin-bottom: 20px;
+  padding: 16px 0;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 -2px 12px rgba(0, 229, 255, 0.1); /* Sombra con color neón */
 }
 
+/* Estilos para enlaces de CONTACTO en ADDRESS - AHORA BLANCO OPACO -> BLANCO BRILLANTE */
 address a {
-    color: var(--contact-link);
-    text-decoration: none;
+  color: var(--link-opaque); /* Blanco opaco */
+  text-decoration: none;
+  transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
 }
 
+address a:hover {
+  color: var(--link-bright); /* Blanco brillante */
+  text-shadow: 0 0 10px var(--link-bright); /* Sombra brillante */
+}
+
+
+/* Estilos para enlaces de FUENTES DE INFORMACIÓN - AHORA BLANCO OPACO -> BLANCO BRILLANTE */
 #fuentes-informacion a {
-    color: var(--fuentes-link);
+  color: var(--link-opaque); /* Blanco opaco */
+  text-decoration: none; /* Asegura que no tenga subrayado por defecto */
+  transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
 }
 
+#fuentes-informacion a:hover {
+    color: var(--link-bright); /* Blanco brillante */
+    text-decoration: underline; /* Puedes añadir subrayado al hover si quieres */
+    text-shadow: 0 0 10px var(--link-bright); /* Sombra brillante */
+}
+
+/* Estilos para enlaces generales del FOOTER - AHORA BLANCO OPACO -> BLANCO BRILLANTE */
 footer a {
-    color: var(--footer-link);
-    text-decoration: none;
-    transition: color 0.3s, text-decoration 0.3s;
-    display: inline-block;
+  color: var(--link-opaque); /* Blanco opaco */
+  text-decoration: none;
+  transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+  display: inline-block;
 }
 
 footer a:hover {
-    color: var(--link-hover);
-    text-decoration: underline;
+  color: var(--link-bright); /* Blanco brillante */
+  text-decoration: underline;
+  text-shadow: 0 0 10px var(--link-bright); /* Sombra brillante */
 }
 
 /* Estilos específicos para la imagen de introducción */
 .intro-image {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 20px auto; /* Ajustado el margin para más espacio */
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(58,12,163,0.18);
-    /* Las animaciones de flotación se aplican siempre */
-    animation: floatY var(--float-duration-y) var(--float-ease) infinite alternate,
-               floatX var(--float-duration-x) var(--float-ease) infinite alternate;
-    transition: box-shadow 0.3s;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto; /* Ajustado el margin para más espacio */
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 229, 255, 0.18); /* Sombra con color neón */
+  /* Las animaciones de flotación se aplican siempre */
+  animation: floatY var(--float-duration-y) var(--float-ease) infinite alternate,
+    floatX var(--float-duration-x) var(--float-ease) infinite alternate;
+  transition: box-shadow 0.3s;
 }
 
 .intro-image:hover {
-    box-shadow: 0 8px 32px 4px rgba(255,0,110,0.18);
-    /* No sobreescribir floatX con otro floatX en hover */
+  box-shadow: 0 8px 32px 4px rgba(0, 170, 255, 0.18); /* Sombra neón al hacer hover */
+  /* No sobreescribir floatX con otro floatX en hover */
 }
 
 
 /*
-  ========================================
-  Animaciones Keyframes
-  ========================================
-*/
+ * ========================================
+ * Animaciones Keyframes
+ * ========================================
+ */
 
 /* Animación de flotación vertical */
 @keyframes floatY {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-18px); }
-    100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 /* Animación de flotación horizontal */
 @keyframes floatX {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(18px); }
-    100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(18px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* Animación de entrada: Fade In Up */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Animación de entrada: Fade In Left (para secciones impares si se desea) */
 @keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Animación de entrada: Fade In Right (para secciones pares si se desea) */
 @keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /*
-  ========================================
-  Control de visibilidad y animaciones con JavaScript
-  ========================================
-*/
+ * ========================================
+ * Control de visibilidad y animaciones con JavaScript
+ * ========================================
+ */
 
 /* Ocultar secciones y footer por defecto antes de que JavaScript actúe */
 body:not(.js-ready) section,
 body:not(.js-ready) footer {
-    opacity: 0;
-    transform: translateY(30px); /* O alguna transformación inicial */
-    /* No transiciones en el estado inicial para evitar un "parpadeo" */
+  opacity: 0;
+  transform: translateY(30px); /* O alguna transformación inicial */
+  /* No transiciones en el estado inicial para evitar un "parpadeo" */
 }
 
 /* Estilos de TRANSICIÓN para las secciones cuando JavaScript está activo */
 /* Estas transiciones controlarán la aparición suave de los elementos */
 body.js-ready section,
 body.js-ready footer {
-    opacity: 0; /* Inicialmente oculto */
-    transition: opacity var(--transition-duration) var(--transition-ease),
-                transform var(--transition-duration) var(--transition-ease);
+  opacity: 0; /* Inicialmente oculto */
+  transition: opacity var(--transition-duration) var(--transition-ease),
+    transform var(--transition-duration) var(--transition-ease);
 }
 
 
 /* Cuando la clase 'is-visible' se añade, aplica la animación de entrada */
 body.js-ready section.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    animation: fadeInUp var(--transition-duration) var(--transition-ease) forwards;
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeInUp var(--transition-duration) var(--transition-ease) forwards;
 }
 
 /* Opcional: animar secciones alternas de diferente manera */
 body.js-ready section:nth-of-type(odd).is-visible {
-    animation: fadeInLeft var(--transition-duration) var(--transition-ease) forwards;
+  animation: fadeInLeft var(--transition-duration) var(--transition-ease) forwards;
 }
 
 body.js-ready section:nth-of-type(even).is-visible {
-    animation: fadeInRight var(--transition-duration) var(--transition-ease) forwards;
+  animation: fadeInRight var(--transition-duration) var(--transition-ease) forwards;
 }
 
 /* Animación para el footer */
 body.js-ready footer.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    animation: fadeInUp var(--transition-duration) var(--transition-ease) forwards;
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeInUp var(--transition-duration) var(--transition-ease) forwards;
 }
 
 /*
-  ========================================
-  Responsive Design
-  ========================================
-*/
+ * ========================================
+ * Responsive Design
+ * ========================================
+ */
 @media (max-width: 900px) {
-    main {
-        padding: 15px;
-        max-width: 95%;
-    }
-    section {
-        padding: 15px;
-    }
-    nav ul li {
-        margin: 0 10px;
-    }
+  main {
+    padding: 15px;
+    max-width: 95%;
+  }
+  section {
+    padding: 15px;
+  }
+  nav ul li {
+    margin: 0 10px;
+  }
 }
 
 @media (max-width: 600px) {
-    header {
-        padding: 0.7rem 0;
-    }
-    nav ul {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
-    main {
-        padding: 10px;
-        max-width: 100%;
-    }
-    section {
-        padding: 10px;
-    }
-    h1 {
-        font-size: 1.7rem;
-    }
-    h2 {
-        font-size: 1.2rem;
-    }
-    .intro-image {
-        margin: 10px auto;
-    }
-    footer {
-        padding: 12px;
-        font-size: 0.95rem;
-    }
+  header {
+    padding: 0.7rem 0;
+  }
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  nav ul li {
+    display: block;
+    margin: 10px 0;
+  }
+  main {
+    padding: 10px;
+    max-width: 100%;
+  }
+  section {
+    padding: 10px;
+  }
+  h1 {
+    font-size: 1.7rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  .intro-image {
+    margin: 10px auto;
+  }
+  footer {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
 }
