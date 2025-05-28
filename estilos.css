@@ -125,9 +125,17 @@ img {
   display: block;
   margin: auto;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 229, 255, 0.18); /* Sombra con color neón */
+  box-shadow: 0 4px 24px rgba(0, 229, 255, 0.18);
   text-align: center;
+  animation: floatY var(--float-duration-y) var(--float-ease) infinite alternate,
+             floatX var(--float-duration-x) var(--float-ease) infinite alternate;
+  transition: box-shadow 0.3s;
 }
+
+img:hover {
+  box-shadow: 0 8px 32px 4px rgba(0, 170, 255, 0.18);
+}
+
 section:last-of-type {
   border-bottom: none;
 }
