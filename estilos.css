@@ -120,6 +120,11 @@ section {
   box-shadow: 0 1px 8px rgba(0, 229, 255, 0.07); /* Sombra con color neón */
 }
 
+img{
+  width: 400px;
+  height: 400px;
+}
+
 /* MODIFICADO: Aplicar el fondo luminoso azul neón a todas las imágenes */
 img {
   max-width: 100%;
