@@ -5,12 +5,12 @@
  */
 html,
 body {
-  /* overflow-x: hidden; Esto es importante para evitar barras de scroll horizontales indeseadas */
   overflow-x: hidden;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   position: relative;
+  width: 100%;
 }
 
 body {
@@ -19,7 +19,8 @@ body {
   background-color: var(--bg-main);
   color: var(--text-main);
   transition: background 0.4s, color 0.4s;
-  /* Por defecto, las secciones no tendrán la animación de entrada si JS no está activo */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /*
@@ -56,7 +57,7 @@ body {
   --float-ease: ease-in-out;
 
   /* Variables de animación */
-  --animation-duration: 1.2s;
+  --animation-duration: 1.4s;
   --animation-timing: ease-out;
   --float-speed: 3s;
   --float-distance: 15px;
@@ -124,12 +125,13 @@ nav ul li a:hover {
 main {
   padding: 24px;
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
   background-color: var(--bg-section);
   box-shadow: 0 0 18px rgba(0, 229, 255, 0.1);
   border-radius: 12px;
   transition: background 0.4s;
-  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 section {
@@ -142,6 +144,9 @@ section {
   margin-bottom: 32px;
   padding: 22px;
   transform: translateX(0);
+  position: relative;
+  z-index: 1;
+  will-change: transform;
 }
 
 img{
@@ -199,6 +204,25 @@ footer {
   box-shadow: 0 -2px 12px rgba(0, 229, 255, 0.1);
   position: relative;
   z-index: 1;
+  opacity: 0;
+  transform: translateY(50px);
+  will-change: transform, opacity;
+}
+
+/* Animación fluida para el footer */
+footer.slide-animation-down {
+  animation: smoothSlideIn 2.2s ease-out forwards;
+}
+
+@keyframes smoothSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Estilos para enlaces de CONTACTO en ADDRESS - AHORA BLANCO OPACO -> BLANCO BRILLANTE */
@@ -347,7 +371,7 @@ body.js-ready footer {
   opacity: 1;
   transform: none;
   pointer-events: auto;
-  transition: transform 0.8s ease-out;
+  transition: transform 1s ease-out;
   will-change: transform;
 }
 
@@ -409,7 +433,10 @@ section:nth-child(even).slide-animation-up {
 /* Animaciones para el footer */
 footer.slide-animation-down,
 footer.slide-animation-up {
-    animation: slideFromBottom var(--animation-duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform var(--animation-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                opacity var(--animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Animación flotante para imágenes */
@@ -448,11 +475,13 @@ footer.slide-animation-up {
 @keyframes slideFromBottom {
     0% {
         opacity: 0;
-        transform: translateY(var(--footer-slide-distance));
+        transform: translate3d(0, var(--footer-slide-distance), 0);
+        visibility: visible;
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
     }
 }
 
@@ -587,4 +616,11 @@ footer.slide-animation-up {
             0 0 10px var(--glow-intense),
             0 0 20px var(--glow-intense);
     }
+}
+
+/* Contenedor para las animaciones */
+.animation-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
 }

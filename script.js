@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Track last scroll position to determine direction
     let lastScrollY = window.scrollY;
     let footerAnimationTimeout;
+    let isFooterAnimating = false;
 
     // Function to determine scroll direction
     function getScrollDirection() {
@@ -63,31 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
         element.classList.add('slide-animation');
     }
 
-    // Opciones para el Intersection Observer
-    const observerOptions = {
-        root: null,
-        rootMargin: '100px',
-        threshold: 0.1 // Reducido para el footer
-    };
-
-    // Observer específico para el footer
+    // Observer para el footer
     const footerObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                clearTimeout(footerAnimationTimeout);
-                entry.target.classList.remove('slide-animation-up', 'slide-animation-down');
-                
-                // Pequeño delay para asegurar que las clases se han limpiado
-                footerAnimationTimeout = setTimeout(() => {
-                    const scrollDirection = getScrollDirection();
-                    entry.target.classList.add(scrollDirection === 'down' ? 'slide-animation-down' : 'slide-animation-up');
-                }, 50);
+                // Remover la clase primero
+                entry.target.classList.remove('slide-animation-down');
+                // Forzar reflow
+                void entry.target.offsetWidth;
+                // Agregar la clase nuevamente
+                entry.target.classList.add('slide-animation-down');
             }
         });
     }, {
         root: null,
-        rootMargin: '50px', // Margen más pequeño para el footer
-        threshold: 0.2 // Umbral más alto para el footer
+        rootMargin: '-10% 0px',
+        threshold: 0.1
     });
 
     // Observer para las secciones
@@ -99,18 +91,22 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (entry.isIntersecting) {
                 element.classList.remove('slide-animation-up', 'slide-animation-down');
-                void element.offsetWidth; // Forzar reflow
+                void element.offsetWidth;
                 
                 element.classList.add(scrollDirection === 'down' ? 
                     'slide-animation-down' : 'slide-animation-up');
             }
         });
-    }, observerOptions);
+    }, {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0.1
+    });
 
     // Observar secciones
     sectionsToAnimate.forEach(section => sectionObserver.observe(section));
 
-    // Observar footer con su observer específico
+    // Observar footer
     if (footerToAnimate) {
         footerObserver.observe(footerToAnimate);
     }
