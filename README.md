@@ -15,9 +15,22 @@
 - Se configuró la duración de la animación a 1.2 segundos
 
 ### Paso 3: Animación Especial del Footer
-- Se creó una animación específica desde abajo
-- Se ajustó la distancia a 200px (menor que las secciones)
-- Se mantuvo la misma duración y timing que las secciones
+1. Primera implementación:
+   - Se creó una animación específica desde abajo
+   - Se ajustó la distancia a 200px (menor que las secciones)
+   - Se mantuvo la misma duración y timing que las secciones
+
+2. Corrección de problemas:
+   - Se separó el observer del footer del de las secciones
+   - Se optimizó el manejo de las animaciones con timeout
+   - Se ajustó el threshold y rootMargin específicamente para el footer
+
+3. Solución de bugs:
+   - Se corrigió el problema de trabado durante el scroll
+   - Se eliminó la barra de scroll adicional
+   - Se mejoró el manejo del overflow
+   - Se optimizó el posicionamiento del footer
+   - Se agregó `forwards` a la animación para mantener el estado final
 
 ### Paso 4: Animaciones de Imágenes
 - Se agregó efecto de flotación constante

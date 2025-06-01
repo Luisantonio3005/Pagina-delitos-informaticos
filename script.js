@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Track last scroll position to determine direction
     let lastScrollY = window.scrollY;
+    let footerAnimationTimeout;
 
     // Function to determine scroll direction
     function getScrollDirection() {
@@ -65,37 +66,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // Opciones para el Intersection Observer
     const observerOptions = {
         root: null,
-        rootMargin: '100px', // Aumentado de 50px a 100px para detectar aún más temprano
-        threshold: 0.05 // Reducido aún más para activar más temprano
+        rootMargin: '100px',
+        threshold: 0.1 // Reducido para el footer
     };
 
-    // Crear el Intersection Observer
-    const observer = new IntersectionObserver((entries) => {
+    // Observer específico para el footer
+    const footerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                clearTimeout(footerAnimationTimeout);
+                entry.target.classList.remove('slide-animation-up', 'slide-animation-down');
+                
+                // Pequeño delay para asegurar que las clases se han limpiado
+                footerAnimationTimeout = setTimeout(() => {
+                    const scrollDirection = getScrollDirection();
+                    entry.target.classList.add(scrollDirection === 'down' ? 'slide-animation-down' : 'slide-animation-up');
+                }, 50);
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '50px', // Margen más pequeño para el footer
+        threshold: 0.2 // Umbral más alto para el footer
+    });
+
+    // Observer para las secciones
+    const sectionObserver = new IntersectionObserver((entries) => {
         const scrollDirection = getScrollDirection();
         
         entries.forEach(entry => {
             const element = entry.target;
             
             if (entry.isIntersecting) {
-                // Remover clases anteriores antes de añadir nuevas
                 element.classList.remove('slide-animation-up', 'slide-animation-down');
+                void element.offsetWidth; // Forzar reflow
                 
-                // Forzar un reflow antes de añadir la nueva animación
-                void element.offsetWidth;
-                
-                // Añadir la clase de animación según la dirección
-                if (scrollDirection === 'down') {
-                    element.classList.add('slide-animation-down');
-                } else {
-                    element.classList.add('slide-animation-up');
-                }
+                element.classList.add(scrollDirection === 'down' ? 
+                    'slide-animation-down' : 'slide-animation-up');
             }
         });
     }, observerOptions);
 
-    // Observar todas las secciones y el footer
-    sectionsToAnimate.forEach(section => observer.observe(section));
-    if (footerToAnimate) observer.observe(footerToAnimate);
+    // Observar secciones
+    sectionsToAnimate.forEach(section => sectionObserver.observe(section));
+
+    // Observar footer con su observer específico
+    if (footerToAnimate) {
+        footerObserver.observe(footerToAnimate);
+    }
 
     // Mejorar el manejo de clics en los enlaces de navegación
     document.querySelectorAll('nav a').forEach(link => {
@@ -105,19 +123,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                // Remover animaciones previas
                 targetElement.classList.remove('slide-animation-up', 'slide-animation-down');
-                
-                // Forzar reflow
                 void targetElement.offsetWidth;
                 
-                // Añadir nueva animación
                 targetElement.classList.add('slide-animation-down');
                 
-                // Calcular la posición del elemento
                 const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
                 
-                // Scroll suave a la posición
                 window.scrollTo({
                     top: elementPosition,
                     behavior: 'smooth'
