@@ -3,66 +3,141 @@ document.addEventListener('DOMContentLoaded', () => {
     // Esto permite que el CSS controle las animaciones solo cuando JS está presente
     document.body.classList.add('js-ready');
 
-    // Seleccionar todas las secciones que queremos animar al hacer scroll
+    // Seleccionar todas las secciones que queremos animar
     const sectionsToAnimate = document.querySelectorAll('section');
     const footerToAnimate = document.querySelector('footer');
 
-    // Opciones para el Intersection Observer
-    // root: null significa el viewport del navegador
-    // rootMargin: '0px' significa que la intersección se activa cuando el elemento entra/sale del viewport
-    // threshold: 0.2 significa que la intersección se activa cuando el 20% del elemento es visible
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.3 // Puedes ajustar este valor (0.0 a 1.0)
+    // Track last scroll position to determine direction
+    let lastScrollY = window.scrollY;
+
+    // Function to determine scroll direction
+    function getScrollDirection() {
+        const currentScrollY = window.scrollY;
+        const direction = currentScrollY > lastScrollY ? 'down' : 'up';
+        lastScrollY = currentScrollY;
+        return direction;
+    }
+
+    // Función para añadir la clase con delay
+    const addVisibleClassWithDelay = (element, delay) => {
+        setTimeout(() => {
+            element.classList.add('is-visible');
+            // Habilitar interacciones después de que la animación termine
+            setTimeout(() => {
+                element.style.pointerEvents = 'auto';
+            }, 1200); // Tiempo igual a la duración de la animación
+        }, delay);
     };
 
-    // Crear una nueva instancia de Intersection Observer
-    const observer = new IntersectionObserver((entries, observer) => {
+    // Función para animar elementos inicialmente visibles
+    const animateInitialVisibleElements = () => {
+        const viewportHeight = window.innerHeight;
+        
+        sectionsToAnimate.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            // Si el elemento está en el viewport inicial
+            if (rect.top < viewportHeight) {
+                const delay = Math.min(index * 200, 600);
+                section.style.pointerEvents = 'none';
+                addVisibleClassWithDelay(section, delay);
+            }
+        });
+
+        // Animar el footer si está visible
+        if (footerToAnimate) {
+            const footerRect = footerToAnimate.getBoundingClientRect();
+            if (footerRect.top < viewportHeight) {
+                footerToAnimate.style.pointerEvents = 'none';
+                addVisibleClassWithDelay(footerToAnimate, 800);
+            }
+        }
+    };
+
+    // Función para animar un elemento
+    function animateElement(element) {
+        // Remover la clase de animación y forzar un reflow
+        element.classList.remove('slide-animation');
+        void element.offsetWidth;
+        // Añadir la clase para iniciar la animación
+        element.classList.add('slide-animation');
+    }
+
+    // Opciones para el Intersection Observer
+    const observerOptions = {
+        root: null,
+        rootMargin: '100px', // Aumentado de 50px a 100px para detectar aún más temprano
+        threshold: 0.05 // Reducido aún más para activar más temprano
+    };
+
+    // Crear el Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+        const scrollDirection = getScrollDirection();
+        
         entries.forEach(entry => {
+            const element = entry.target;
+            
             if (entry.isIntersecting) {
-                // Si el elemento es visible, añadir la clase 'is-visible'
-                entry.target.classList.add('is-visible');
-                // Opcional: Si quieres que la animación se ejecute solo una vez,
-                // puedes dejar de observar el elemento después de que sea visible.
-                // observer.unobserve(entry.target);
-            } else {
-                // Opcional: Si quieres que la animación se reinicie cada vez que el usuario sale y vuelve a entrar
-                // en la sección (scroll hacia arriba y hacia abajo), puedes quitar la clase.
-                // Si no quieres que se reinicie, elimina esta línea.
-                entry.target.classList.remove('is-visible');
+                // Remover clases anteriores antes de añadir nuevas
+                element.classList.remove('slide-animation-up', 'slide-animation-down');
+                
+                // Forzar un reflow antes de añadir la nueva animación
+                void element.offsetWidth;
+                
+                // Añadir la clase de animación según la dirección
+                if (scrollDirection === 'down') {
+                    element.classList.add('slide-animation-down');
+                } else {
+                    element.classList.add('slide-animation-up');
+                }
             }
         });
     }, observerOptions);
 
-    // Observar cada sección
-    sectionsToAnimate.forEach(section => {
-        observer.observe(section);
-    });
+    // Observar todas las secciones y el footer
+    sectionsToAnimate.forEach(section => observer.observe(section));
+    if (footerToAnimate) observer.observe(footerToAnimate);
 
-    // Observar el footer también
-    if (footerToAnimate) {
-        observer.observe(footerToAnimate);
-    }
-
-    // Funcionalidad de scroll suave para los enlaces de navegación
-    document.querySelectorAll('nav ul li a').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
-
-            const targetId = this.getAttribute('href'); // Obtener el ID del destino (e.g., "#introduccion")
+    // Mejorar el manejo de clics en los enlaces de navegación
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
             const targetElement = document.querySelector(targetId);
-
+            
             if (targetElement) {
-                // Scroll suave hasta el elemento
-                targetElement.scrollIntoView({
+                // Remover animaciones previas
+                targetElement.classList.remove('slide-animation-up', 'slide-animation-down');
+                
+                // Forzar reflow
+                void targetElement.offsetWidth;
+                
+                // Añadir nueva animación
+                targetElement.classList.add('slide-animation-down');
+                
+                // Calcular la posición del elemento
+                const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                
+                // Scroll suave a la posición
+                window.scrollTo({
+                    top: elementPosition,
                     behavior: 'smooth'
                 });
-
-                // Añadir la clase 'is-visible' inmediatamente al elemento objetivo
-                // para que aparezca si se navega a él directamente
-                targetElement.classList.add('is-visible');
             }
         });
+    });
+
+    // Activar animaciones de imágenes
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.classList.add('floating-image');
+    });
+
+    // Opcional: Resetear las animaciones cuando el usuario vuelve al principio
+    window.addEventListener('scroll', () => {
+        if (window.scrollY < 100) {
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('slide-animation');
+            });
+        }
     });
 });

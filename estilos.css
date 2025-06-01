@@ -52,6 +52,18 @@ body {
   --float-duration-y: 3s;
   --float-duration-x: 4s;
   --float-ease: ease-in-out;
+
+  /* Variables de animación */
+  --animation-duration: 1.2s;
+  --animation-timing: ease-out;
+  --float-speed: 3s;
+  --float-distance: 15px;
+  --slide-distance: 400px; /* Distancia para secciones */
+  --footer-slide-distance: 200px; /* Distancia específica para el footer */
+  --glow-color: rgba(255, 255, 255, 0.8);
+  --glow-intense: rgba(255, 255, 255, 1);
+  --pulse-duration: 2s;
+  --pulse-hover-duration: 1s;
 }
 
 /* No necesitamos un media query para `prefers-color-scheme: dark` si los colores base ya son oscuros */
@@ -83,6 +95,7 @@ nav ul {
 nav ul li {
   display: inline;
   margin: 0 18px;
+  position: relative;
 }
 
 /* Estilos para enlaces del HEADER (NAVEGACIÓN) - AHORA BLANCO OPACO -> BLANCO BRILLANTE */
@@ -92,13 +105,17 @@ nav ul li a {
   padding: 10px 0;
   display: inline-block;
   font-weight: 500;
-  transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out; /* Transición suave */
-  text-shadow: 0 1px 8px var(--link-shadow-opaque); /* Sombra tenue */
+  transition: all 0.3s ease-in-out;
+  text-shadow: 0 1px 8px var(--link-shadow-opaque);
+  position: relative;
 }
 
 nav ul li a:hover {
-  color: var(--link-bright); /* Blanco brillante */
-  text-shadow: 0 2px 12px var(--link-shadow-bright); /* Sombra brillante */
+  color: var(--glow-intense);
+  text-shadow: 
+    0 0 15px var(--glow-intense),
+    0 0 25px var(--glow-intense),
+    0 0 35px var(--glow-intense);
 }
 
 main {
@@ -112,12 +129,15 @@ main {
 }
 
 section {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: rgba(0, 229, 255, 0.07);
+  border-radius: 12px;
+  box-shadow: 0 1px 8px rgba(0, 229, 255, 0.07);
   margin-bottom: 32px;
   padding: 22px;
-  border-bottom: 2px solid var(--border);
-  background: rgba(0, 229, 255, 0.07); /* Fondo ligeramente neón */
-  border-radius: 12px;
-  box-shadow: 0 1px 8px rgba(0, 229, 255, 0.07); /* Sombra con color neón */
+  transform: translateX(0);
 }
 
 img{
@@ -135,13 +155,16 @@ img {
   /* Fondo luminoso azul neón */
   box-shadow: 0 0 25px 10px rgba(0, 229, 255, 0.25); /* Mayor dispersión y opacidad para el efecto de "fondo" */
   text-align: center;
-  animation: floatY var(--float-duration-y) var(--float-ease) infinite alternate,
-             floatX var(--float-duration-x) var(--float-ease) infinite alternate;
-  transition: box-shadow 0.3s;
+  transform: translate(0, 0); /* Punto de inicio para las animaciones */
+  animation: 
+    floatY 3s ease-in-out infinite alternate,
+    floatX 4s ease-in-out infinite alternate;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
 img:hover {
-  box-shadow: 0 0 35px 15px rgba(0, 170, 255, 0.3); /* Aún más brillante en hover */
+  box-shadow: 0 0 35px 15px rgba(0, 170, 255, 0.3);
+  transform: scale(1.02); /* Ligero zoom al hacer hover */
 }
 
 section:last-of-type {
@@ -222,11 +245,8 @@ footer a:hover {
   0% {
     transform: translateY(0);
   }
-  50% {
-    transform: translateY(-18px);
-  }
   100% {
-    transform: translateY(0);
+    transform: translateY(-10px);
   }
 }
 
@@ -235,11 +255,8 @@ footer a:hover {
   0% {
     transform: translateX(0);
   }
-  50% {
-    transform: translateX(18px);
-  }
   100% {
-    transform: translateX(0);
+    transform: translateX(10px);
   }
 }
 
@@ -247,7 +264,7 @@ footer a:hover {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -255,11 +272,11 @@ footer a:hover {
   }
 }
 
-/* Animación de entrada: Fade In Left (para secciones impares si se desea) */
+/* Animación de entrada: Fade In Left */
 @keyframes fadeInLeft {
   from {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-30px);
   }
   to {
     opacity: 1;
@@ -267,11 +284,35 @@ footer a:hover {
   }
 }
 
-/* Animación de entrada: Fade In Right (para secciones pares si se desea) */
+/* Animación de entrada: Fade In Right */
 @keyframes fadeInRight {
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animación para secciones impares (desde la izquierda) */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animación para secciones pares (desde la derecha) */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
   }
   to {
     opacity: 1;
@@ -285,51 +326,140 @@ footer a:hover {
  * ========================================
  */
 
-/* Ocultar secciones y footer por defecto antes de que JavaScript actúe */
+/* Control de visibilidad y animaciones */
 body:not(.js-ready) section,
 body:not(.js-ready) footer {
-  opacity: 0;
-  transform: translateY(30px); /* O alguna transformación inicial */
-  /* No transiciones en el estado inicial para evitar un "parpadeo" */
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
 }
 
 /* Estilos de TRANSICIÓN para las secciones cuando JavaScript está activo */
-/* Estas transiciones controlarán la aparición suave de los elementos */
-body.js-ready section {
-  opacity: 0; /* Inicialmente oculto */
-  transition: opacity var(--transition-duration) var(--transition-ease),
-    transform var(--transition-duration) var(--transition-ease);
-}
-
-/* NUEVO: Estilos de TRANSICIÓN específicos para el footer */
+body.js-ready section,
 body.js-ready footer {
-  opacity: 0; /* Inicialmente oculto */
-  transition: opacity var(--footer-transition-duration) var(--transition-ease),
-    transform var(--footer-transition-duration) var(--transition-ease);
-}
-
-
-/* Cuando la clase 'is-visible' se añade, aplica la animación de entrada */
-body.js-ready section.is-visible {
   opacity: 1;
-  transform: translateY(0);
-  animation: fadeInUp var(--transition-duration) var(--transition-ease) forwards;
+  transform: none;
+  pointer-events: auto;
+  transition: transform 0.8s ease-out;
+  will-change: transform;
 }
 
-/* Opcional: animar secciones alternas de diferente manera */
-body.js-ready section:nth-of-type(odd).is-visible {
-  animation: fadeInLeft var(--transition-duration) var(--transition-ease) forwards;
-}
-
-body.js-ready section:nth-of-type(even).is-visible {
-  animation: fadeInRight var(--transition-duration) var(--transition-ease) forwards;
+/* Animaciones específicas para secciones cuando se hace scroll */
+body.js-ready section.is-visible {
+  transform: none;
 }
 
 /* Animación para el footer */
 body.js-ready footer.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-  animation: fadeInUp var(--footer-transition-duration) var(--transition-ease) forwards;
+  transform: none;
+}
+
+/* Control de visibilidad por defecto - siempre visible */
+section, footer {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: rgba(0, 229, 255, 0.07);
+  border-radius: 12px;
+  box-shadow: 0 1px 8px rgba(0, 229, 255, 0.07);
+  margin-bottom: 32px;
+  padding: 22px;
+  will-change: transform, opacity; /* Optimización de rendimiento */
+  transform-origin: center center;
+}
+
+/* Animaciones para las secciones */
+section {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: rgba(0, 229, 255, 0.07);
+    border-radius: 12px;
+    box-shadow: 0 1px 8px rgba(0, 229, 255, 0.07);
+    margin-bottom: 32px;
+    padding: 22px;
+    transform: translateX(0);
+}
+
+/* Animaciones para scroll hacia abajo */
+section:nth-child(odd).slide-animation-down {
+    animation: slideFromLeft var(--animation-duration) var(--animation-timing);
+}
+
+section:nth-child(even).slide-animation-down {
+    animation: slideFromRight var(--animation-duration) var(--animation-timing);
+}
+
+/* Animaciones para scroll hacia arriba */
+section:nth-child(odd).slide-animation-up {
+    animation: slideFromLeft var(--animation-duration) var(--animation-timing);
+}
+
+section:nth-child(even).slide-animation-up {
+    animation: slideFromRight var(--animation-duration) var(--animation-timing);
+}
+
+/* Animaciones para el footer */
+footer.slide-animation-down,
+footer.slide-animation-up {
+    animation: slideFromBottom var(--animation-duration) var(--animation-timing);
+}
+
+/* Animación flotante para imágenes */
+.floating-image {
+    animation: float var(--float-speed) ease-in-out infinite;
+    transition: transform 0.3s ease-in-out;
+}
+
+.floating-image:hover {
+    transform: scale(1.05) translateY(-5px);
+}
+
+/* Keyframes para las animaciones de secciones */
+@keyframes slideFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(calc(var(--slide-distance) * -1));
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(var(--slide-distance));
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(var(--footer-slide-distance));
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animación flotante */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(var(--float-distance));
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 /*
@@ -383,4 +513,71 @@ body.js-ready footer.is-visible {
     padding: 12px;
     font-size: 0.95rem;
   }
+}
+
+/* Animación básica */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Aplicar animación cuando tiene la clase */
+.animate-section {
+  animation: slideIn 1s ease-out;
+}
+
+/* Clase para activar la animación */
+.slide-animation {
+  animation: slideFromLeft 0.8s ease-out forwards;
+}
+
+/* Asegurar que no haya animaciones durante el scroll */
+.slide-animation.animating {
+  animation-play-state: paused;
+}
+
+/* Animación de parpadeo brillante */
+@keyframes glowPulse {
+    0% {
+        color: var(--link-opaque);
+        text-shadow: 0 1px 8px var(--link-shadow-opaque);
+    }
+    50% {
+        color: var(--glow-color);
+        text-shadow: 
+            0 0 10px var(--glow-color),
+            0 0 20px var(--glow-color);
+    }
+    100% {
+        color: var(--link-opaque);
+        text-shadow: 0 1px 8px var(--link-shadow-opaque);
+    }
+}
+
+/* Animación de parpadeo intenso para hover */
+@keyframes glowPulseIntense {
+    0% {
+        color: var(--link-bright);
+        text-shadow: 
+            0 0 10px var(--glow-intense),
+            0 0 20px var(--glow-intense);
+    }
+    50% {
+        color: var(--glow-intense);
+        text-shadow: 
+            0 0 15px var(--glow-intense),
+            0 0 25px var(--glow-intense),
+            0 0 35px var(--glow-intense),
+            0 0 45px var(--glow-intense);
+    }
+    100% {
+        color: var(--link-bright);
+        text-shadow: 
+            0 0 10px var(--glow-intense),
+            0 0 20px var(--glow-intense);
+    }
 }
