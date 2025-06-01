@@ -61,7 +61,7 @@ body {
   --slide-distance: 400px; /* Distancia para secciones */
   --footer-slide-distance: 200px; /* Distancia específica para el footer */
   --glow-color: rgba(255, 255, 255, 0.8);
-  --glow-intense: rgba(255, 255, 255, 1);
+  --glow-intense: rgba(255, 255, 255, 0.85); /* Reducido de 1 a 0.85 */
   --pulse-duration: 2s;
   --pulse-hover-duration: 1s;
 }
@@ -113,9 +113,9 @@ nav ul li a {
 nav ul li a:hover {
   color: var(--glow-intense);
   text-shadow: 
-    0 0 15px var(--glow-intense),
-    0 0 25px var(--glow-intense),
-    0 0 35px var(--glow-intense);
+    0 0 10px var(--glow-intense),
+    0 0 20px var(--glow-intense),
+    0 0 25px var(--glow-intense); /* Reducido de 35px a 25px */
 }
 
 main {

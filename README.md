@@ -1,4 +1,4 @@
-# Este repositorio es para mis practicaz
+# Este repositorio es para mis practicas
 
 ## Registro de Desarrollo - Animaciones y Efectos
 
@@ -39,6 +39,11 @@
    - Se dejó solo el brillo al hover
    - Se implementó transición suave
    - Se agregaron múltiples capas de resplandor
+
+4. Ajuste final del brillo:
+   - Se redujo la intensidad del brillo de 1 a 0.85
+   - Se disminuyó el radio del resplandor de 35px a 25px
+   - Se suavizó el efecto general para mejor visibilidad
 
 ### Optimizaciones Realizadas
 1. Rendimiento:
