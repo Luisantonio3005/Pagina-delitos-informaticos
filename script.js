@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const targetId = link.getAttribute('href');
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 targetElement.classList.remove('slide-animation-up', 'slide-animation-down');
                 void targetElement.offsetWidth;
