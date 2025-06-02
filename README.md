@@ -1,4 +1,4 @@
-# Este repositorio es para mis practicas
+# Este repositorio es para la Pagina Delitos informaticos
 
 ## Registro de Desarrollo - Animaciones y Efectos
 
