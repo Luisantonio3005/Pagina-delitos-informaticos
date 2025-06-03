@@ -196,6 +196,11 @@ h3 {
   font-size: 24px; /* Más pequeño que h2 */
 }
 
+/* Ajuste específico para h2 en la sección de fuentes */
+#fuentes-informacion h2 {
+  font-size: 24px; /* Mismo tamaño que h3 */
+}
+
 ul {
   list-style: disc;
   margin-left: 22px;
