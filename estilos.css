@@ -182,11 +182,18 @@ h2,
 h3 {
   color: var(--accent); /* Se mantiene el color de acento azul neón para los títulos */
   text-shadow: 0 1px 8px rgba(0, 229, 255, 0.1); /* Sombra de texto neón */
+}
+
+h1 {
   font-size: 36px; /* Reducido en 4px */
 }
 
 h2 {
   font-size: 28px; /* Reducido en 4px */
+}
+
+h3 {
+  font-size: 24px; /* Más pequeño que h2 */
 }
 
 ul {
