@@ -11,6 +11,7 @@ body {
   min-height: 100vh;
   position: relative;
   width: 100%;
+  font-size: 22px; /* Establecer tamaño base de fuente */
 }
 
 body {
@@ -115,10 +116,7 @@ nav ul li a {
 
 nav ul li a:hover {
   color: var(--glow-intense);
-  text-shadow: 
-    0 0 10px var(--glow-intense),
-    0 0 20px var(--glow-intense),
-    0 0 25px var(--glow-intense); /* Reducido de 35px a 25px */
+  text-shadow: 0 0 10px var(--glow-intense);
 }
 
 /* Contenedor principal */
@@ -147,6 +145,8 @@ section {
   position: relative;
   z-index: 1;
   will-change: transform;
+  opacity: 1;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 img{
@@ -164,16 +164,13 @@ img {
   /* Fondo luminoso azul neón */
   box-shadow: 0 0 25px 10px rgba(0, 229, 255, 0.25); /* Mayor dispersión y opacidad para el efecto de "fondo" */
   text-align: center;
-  transform: translate(0, 0); /* Punto de inicio para las animaciones */
   animation: 
-    floatY 3s ease-in-out infinite alternate,
-    floatX 4s ease-in-out infinite alternate;
+    floatY 3s ease-in-out infinite alternate;
   transition: box-shadow 0.3s, transform 0.3s;
 }
 
 img:hover {
-  box-shadow: 0 0 35px 15px rgba(0, 170, 255, 0.3);
-  transform: scale(1.02); /* Ligero zoom al hacer hover */
+  transform: scale(1.02);
 }
 
 section:last-of-type {
@@ -185,6 +182,11 @@ h2,
 h3 {
   color: var(--accent); /* Se mantiene el color de acento azul neón para los títulos */
   text-shadow: 0 1px 8px rgba(0, 229, 255, 0.1); /* Sombra de texto neón */
+  font-size: 36px; /* Reducido en 4px */
+}
+
+h2 {
+  font-size: 28px; /* Reducido en 4px */
 }
 
 ul {
@@ -273,22 +275,14 @@ footer a:hover {
 
 /* Animación de flotación vertical */
 @keyframes floatY {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-10px);
-  }
+  from { transform: translateY(0); }
+  to { transform: translateY(var(--float-distance)); }
 }
 
 /* Animación de flotación horizontal */
 @keyframes floatX {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(10px);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--float-distance)); }
 }
 
 /* Animación de entrada: Fade In Up */
@@ -620,7 +614,11 @@ footer.slide-animation-up {
 
 /* Contenedor para las animaciones */
 .animation-container {
-    overflow: hidden;
     position: relative;
-    width: 100%;
+    overflow: hidden;
+}
+
+/* Ensure all text elements have consistent size */
+p, li, a, address {
+  font-size: 22px;
 }
