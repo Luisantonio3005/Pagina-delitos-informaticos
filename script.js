@@ -113,4 +113,34 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Optimización de carga de imágenes
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    
+    // Configuración del Intersection Observer
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                
+                // Precarga la imagen
+                const tempImage = new Image();
+                tempImage.src = img.src;
+                
+                tempImage.onload = () => {
+                    img.classList.add('loaded');
+                };
+                
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '50px 0px',
+        threshold: 0.01
+    });
+    
+    // Observa todas las imágenes lazy
+    lazyImages.forEach(img => {
+        imageObserver.observe(img);
+    });
 });
