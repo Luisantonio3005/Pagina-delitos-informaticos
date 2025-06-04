@@ -122,7 +122,7 @@ nav ul li a:hover {
 /* Contenedor principal */
 main {
   padding: 24px;
-  max-width: 1200px;
+  max-width: 90%; /* Cambiado de 1200px a 90% para ocupar más espacio */
   margin: 0 auto;
   background-color: var(--bg-section);
   box-shadow: 0 0 18px rgba(0, 229, 255, 0.1);
@@ -681,4 +681,231 @@ footer.slide-animation-up {
 /* Ensure all text elements have consistent size */
 p, li, a, address {
   font-size: 22px;
+}
+
+/* 
+ * ========================================
+ * Sistema Responsive Completo
+ * ========================================
+ */
+
+/* Computadora de escritorio grande (1400px y superior) */
+@media (min-width: 1400px) {
+  main {
+    max-width: 95%; /* Aumentado de 1320px a 95% */
+    padding: 40px; /* Aumentado el padding */
+  }
+
+  section {
+    padding: 30px; /* Más espacio interno */
+    margin-bottom: 40px; /* Más separación entre secciones */
+  }
+
+  img {
+    max-width: 700px; /* Imágenes más grandes */
+    height: auto;
+  }
+
+  h1 { font-size: 42px; }
+  h2 { font-size: 32px; }
+  h3 { font-size: 28px; }
+  body { font-size: 24px; }
+}
+
+/* Laptop y computadora de escritorio normal (992px a 1399px) */
+@media (min-width: 992px) and (max-width: 1399px) {
+  main {
+    max-width: 92%; /* Aumentado de 960px a 92% */
+    padding: 32px; /* Más padding */
+  }
+
+  section {
+    padding: 25px; /* Más espacio interno */
+    margin-bottom: 35px; /* Más separación */
+  }
+
+  img {
+    max-width: 600px; /* Imágenes más grandes */
+    height: auto;
+  }
+
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 24px; }
+  body { font-size: 22px; }
+}
+
+/* Tablet (768px a 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  main {
+    max-width: 95%; /* Aumentado de 720px a 95% */
+    padding: 25px;
+    margin: 0 auto; /* Centrado automático */
+  }
+
+  img {
+    max-width: 500px; /* Imágenes más grandes */
+    height: auto;
+    margin: 20px auto; /* Mejor espaciado */
+  }
+
+  h1 { font-size: 34px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 24px; }
+  body { font-size: 20px; }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px 0;
+  }
+
+  nav ul li {
+    margin: 0 15px;
+  }
+
+  section {
+    padding: 25px; /* Más espacio interno */
+    margin-bottom: 30px;
+    border-radius: 15px; /* Bordes más suaves */
+  }
+}
+
+/* Tablet pequeña y teléfonos grandes (576px a 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  main {
+    max-width: 90%; /* Aumentado de 540px a 90% */
+    padding: 20px;
+    margin: 0 auto;
+  }
+
+  img {
+    max-width: 450px; /* Imágenes más grandes */
+    height: auto;
+    margin: 15px auto;
+  }
+
+  h1 { font-size: 30px; }
+  h2 { font-size: 26px; }
+  h3 { font-size: 22px; }
+  body { font-size: 18px; }
+
+  nav {
+    padding: 12px 0;
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  nav ul li {
+    margin: 5px 10px;
+  }
+
+  section {
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+  }
+
+  header {
+    padding: 15px 0;
+  }
+}
+
+/* Teléfonos (menos de 576px) */
+@media (max-width: 575px) {
+  :root {
+    --slide-distance: 200px;
+    --footer-slide-distance: 100px;
+    --float-distance: 8px;
+  }
+
+  main {
+    max-width: 100%;
+    padding: 12px;
+    margin: 0 5px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  h1 { font-size: 24px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 18px; }
+  body { font-size: 16px; }
+
+  nav {
+    padding: 8px 0;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  nav ul li {
+    margin: 4px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 8px 0;
+  }
+
+  section {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  header {
+    padding: 10px 0;
+  }
+
+  footer {
+    padding: 12px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Ajustes para orientación horizontal en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav ul li {
+    margin: 4px 8px;
+    width: auto;
+  }
+
+  img {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+/* Ajustes para dispositivos con preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

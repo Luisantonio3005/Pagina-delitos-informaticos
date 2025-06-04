@@ -163,6 +163,86 @@
 * Intersection Observer API
 * RequestAnimationFrame para optimización
 
+### Sistema Responsive Detallado
+
+#### Computadora de Escritorio Grande (1400px+)
+* Contenedor principal: 95% del ancho de la pantalla
+* Padding interno: 40px
+* Imágenes: 700px de ancho máximo
+* Tipografía:
+  * Texto base: 24px
+  * h1: 42px
+  * h2: 32px
+  * h3: 28px
+
+#### Laptop y Escritorio Normal (992px a 1399px)
+* Contenedor principal: 92% del ancho
+* Padding interno: 32px
+* Imágenes: 600px de ancho máximo
+* Tipografía:
+  * Texto base: 22px
+  * h1: 36px
+  * h2: 28px
+  * h3: 24px
+
+#### Tablet Grande (768px a 991px)
+* Contenedor principal: 95% del ancho
+* Padding interno: 25px
+* Imágenes: 500px de ancho máximo
+* Tipografía:
+  * Texto base: 20px
+  * h1: 34px
+  * h2: 28px
+  * h3: 24px
+* Navegación:
+  * Menú flexible con wrap
+  * Espaciado entre elementos: 15px
+* Secciones:
+  * Bordes redondeados: 15px
+  * Margen inferior: 30px
+
+#### Tablet Pequeña (576px a 767px)
+* Contenedor principal: 90% del ancho
+* Padding interno: 20px
+* Imágenes: 450px de ancho máximo
+* Tipografía:
+  * Texto base: 18px
+  * h1: 30px
+  * h2: 26px
+  * h3: 22px
+* Navegación:
+  * Menú flexible con wrap
+  * Espaciado entre elementos: 12px
+* Secciones:
+  * Bordes redondeados: 12px
+  * Margen inferior: 25px
+
+#### Móvil (menos de 576px)
+* Contenedor principal: 100% del ancho
+* Padding interno: 12px
+* Imágenes: Ancho completo adaptativo
+* Tipografía:
+  * Texto base: 16px
+  * h1: 24px
+  * h2: 22px
+  * h3: 18px
+* Navegación:
+  * Menú en columna vertical
+  * Elementos centrados
+  * Ancho completo para mejor toque
+* Animaciones optimizadas:
+  * Distancia de deslizamiento: 200px
+  * Distancia del footer: 100px
+  * Distancia de flotación: 8px
+
+#### Características Especiales
+* Orientación horizontal en móviles optimizada
+* Soporte para preferencias de movimiento reducido
+* Animaciones adaptativas según dispositivo
+* Sistema de navegación flexible
+* Imágenes responsivas con proporción mantenida
+* Espaciado proporcional en todos los dispositivos
+
 ### Optimizaciones Realizadas
 1. Rendimiento:
    * Uso de will-change y backface-visibility
