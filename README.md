@@ -3,18 +3,48 @@
 ## Registro de Desarrollo - Animaciones y Efectos
 
 ### Paso 1: Implementación Inicial de Animaciones
-- Se implementó el sistema base de animaciones con Intersection Observer
-- Se aseguró que el contenido fuera siempre visible
-- Se agregaron animaciones básicas al hacer scroll
+* Se implementó el sistema base de animaciones con Intersection Observer
+* Se aseguró que el contenido fuera siempre visible
+* Se agregaron animaciones básicas al hacer scroll
 
 ### Paso 2: Refinamiento de Animaciones de Secciones
-- Se implementó la alternancia de direcciones:
-  - Secciones impares: animación desde la izquierda
-  - Secciones pares: animación desde la derecha
-- Se ajustó la distancia inicial a 400px fuera de la pantalla
-- Se configuró la duración de la animación a 1.2 segundos
+* Se implementó la alternancia de direcciones:
+  * Secciones impares: animación desde la izquierda
+  * Secciones pares: animación desde la derecha
+* Se ajustó la distancia inicial a 200px fuera de la pantalla
+* Se configuró la duración de la animación a 2.8 segundos
 
-### Paso 3: Animación Especial del Footer
+### Paso 3: Optimización de Rendimiento
+* Se implementó requestAnimationFrame para mejor rendimiento
+* Se añadió will-change y backface-visibility para optimización GPU
+* Se mejoró el manejo del reflow usando offsetWidth de manera eficiente
+* Se simplificó el sistema de detección de scroll
+
+### Paso 4: Mejoras en la Activación de Animaciones
+* Se configuró el Intersection Observer para activación inmediata:
+  * threshold: 0 para activar apenas sea visible
+  * rootMargin: '10px' para detección anticipada
+* Se implementó reinicio de animaciones al salir del viewport
+* Se mantiene la animación activa durante toda la navegación
+
+### Paso 5: Refinamiento de Animaciones
+* Se ajustó la curva de timing para movimientos más suaves:
+  * cubic-bezier(0.4, 0.1, 0.3, 1) para todas las animaciones
+  * Duración unificada de 2.8 segundos
+* Se añadió transición gradual de opacidad:
+  * 0% inicio: opacidad 0
+  * 20% progreso: opacidad 0.3
+  * 100% final: opacidad 1
+
+### Paso 6: Ajustes de Texto y Encabezados
+* Se estableció el tamaño base de texto a 22px
+* Se ajustaron los encabezados:
+  * h1: 36px
+  * h2: 28px (general) y 26px (en fuentes)
+  * h3: 24px
+* Se mejoró la jerarquía visual en la sección de fuentes
+
+### Paso 7: Animación Especial del Footer
 1. Primera implementación:
    - Se creó una animación específica desde abajo
    - Se ajustó la distancia a 200px (menor que las secciones)
@@ -32,13 +62,13 @@
    - Se optimizó el posicionamiento del footer
    - Se agregó `forwards` a la animación para mantener el estado final
 
-### Paso 4: Animaciones de Imágenes
+### Paso 8: Animaciones de Imágenes
 - Se agregó efecto de flotación constante
 - Se implementó el movimiento suave arriba y abajo
 - Se añadió sombra con brillo azul neón
 - Se incluyó efecto de escala al hacer hover
 
-### Paso 5: Efectos en Botones de Navegación
+### Paso 9: Efectos en Botones de Navegación
 1. Primera versión:
    - Se agregó parpadeo constante
    - Animación continua de brillo
@@ -58,45 +88,100 @@
    - Se disminuyó el radio del resplandor de 35px a 25px
    - Se suavizó el efecto general para mejor visibilidad
 
-### Optimizaciones Realizadas
-1. Rendimiento:
-   - Se optimizaron las animaciones con `will-change`
-   - Se ajustaron los thresholds del Intersection Observer
-   - Se implementaron transiciones suaves
+### Paso 10: Unificación del Sistema de Animaciones
+* Se unificó el sistema de animaciones del footer con el de las secciones:
+  * Se implementó el mismo timing y duración (2.8s, cubic-bezier)
+  * Se utilizó la misma distancia de entrada (200px)
+  * Se aplicó la misma transición de opacidad (0 -> 0.3 -> 1)
+* Se optimizó el código JavaScript:
+  * Se eliminó el observer separado del footer
+  * Se unificó la lógica de animación en un solo observer
+  * Se mejoró el manejo de elementos con un array unificado
+* Se mantuvieron las optimizaciones de rendimiento:
+  * Uso de will-change y backface-visibility
+  * Implementación de requestAnimationFrame
+  * Manejo eficiente de reflow
 
-2. Visibilidad:
-   - Se aseguró que el contenido siempre fuera visible
-   - Se ajustaron los timings de las animaciones
-   - Se mejoró la experiencia de scroll
+### Paso 11: Unificación del Sistema de Animaciones del Footer
+* Se integró el footer al sistema general de animaciones:
+  * Misma duración que las secciones (2.8s)
+  * Mismo timing function cubic-bezier(0.4, 0.1, 0.3, 1)
+  * Animación en ambas direcciones (arriba/abajo)
+  * Reinicio al entrar en viewport
+* Se implementaron efectos mejorados:
+  * Combinación de movimiento y escala
+  * Efecto de rebote suave
+  * Transiciones de opacidad graduales
+  * Sombras dinámicas
+* Se optimizó el rendimiento:
+  * Sistema de observación unificado
+  * Manejo eficiente de clases CSS
+  * Reflow controlado
+  * Animaciones basadas en transform
 
-3. Responsive:
-   - Se adaptaron las animaciones a diferentes tamaños de pantalla
-   - Se ajustó el menú de navegación
-   - Se optimizaron las imágenes
+### Estado Actual
 
-## Estado Actual
+#### Sistema de Animaciones Unificado
+* Todas las animaciones (secciones y footer):
+  * Distancia de entrada: 200px (secciones), 80px (footer)
+  * Duración: 2.8 segundos
+  * Timing: cubic-bezier(0.4, 0.1, 0.3, 1)
+  * Transición de opacidad: 0 -> 0.3 -> 1
+  * Activación: Al entrar en viewport
+  * Reinicio: Al salir y volver a entrar
+  * Dirección: Basada en el scroll
 
-### Animaciones de Secciones
-- Secciones impares: desde izquierda (400px)
-- Secciones pares: desde derecha (400px)
-- Footer: desde abajo (200px)
-- Duración: 1.2 segundos
-- Timing: ease-out
+#### Optimizaciones
+* Rendimiento:
+  * Uso de will-change y transform
+  * Implementación de requestAnimationFrame
+  * Optimización de reflows
+  * Manejo eficiente de clases CSS
+  * Observer unificado para todos los elementos
 
-### Efectos Visuales
-- Imágenes con flotación constante
-- Botones con brillo al hover
-- Transiciones suaves
-- Efectos neón en todo el diseño
+#### Efectos Visuales
+* Transiciones suaves y graduales
+* Optimización de rendimiento
+* Consistencia en todas las animaciones
+* Efectos neón en el diseño
+* Efectos de rebote sutiles
+* Animaciones flotantes en imágenes
+
+#### Responsive Design
+* Adaptación de animaciones a diferentes tamaños
+* Optimización del menú de navegación
+* Ajuste de tamaños de texto:
+  * Base: 22px
+  * h1: 36px
+  * h2: 28px (general) y 26px (en fuentes)
+  * h3: 24px
 
 ### Tecnologías Implementadas
-- HTML5
-- CSS3 con variables personalizadas
-- JavaScript moderno
-- Intersection Observer API
+* HTML5
+* CSS3 con variables personalizadas
+* JavaScript moderno
+* Intersection Observer API
+* RequestAnimationFrame para optimización
 
-## Próximas Mejoras Posibles
-- Agregar más variedad de animaciones
-- Optimizar para dispositivos de bajo rendimiento
-- Implementar preferencias de reducción de movimiento
-- Añadir efectos de parallax
+### Optimizaciones Realizadas
+1. Rendimiento:
+   * Uso de will-change y backface-visibility
+   * Implementación de requestAnimationFrame
+   * Optimización de reflows
+   * Manejo eficiente de clases CSS
+
+2. Visibilidad:
+   * Activación inmediata de animaciones
+   * Transiciones suaves y naturales
+   * Mejora en la experiencia de scroll
+
+3. Responsive:
+   * Adaptación de animaciones a diferentes tamaños
+   * Optimización del menú de navegación
+   * Ajuste de tamaños de texto
+
+### Próximas Mejoras Posibles
+* Implementar preferencias de reducción de movimiento
+* Optimizar para dispositivos de bajo rendimiento
+* Añadir más variedad de animaciones
+* Implementar efectos de parallax
