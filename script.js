@@ -9,10 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Track last scroll position to determine direction
     let lastScrollY = window.scrollY;
-    let footerAnimationTimeout;
-    let isFooterAnimating = false;
 
-    // Function to determine scroll direction
+    // Función simplificada para determinar dirección del scroll
     function getScrollDirection() {
         const currentScrollY = window.scrollY;
         const direction = currentScrollY > lastScrollY ? 'down' : 'up';
@@ -64,54 +62,68 @@ document.addEventListener('DOMContentLoaded', () => {
         element.classList.add('slide-animation');
     }
 
-    // Observer para el footer
-    const footerObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Remover la clase primero
-                entry.target.classList.remove('slide-animation-down');
-                // Forzar reflow
-                void entry.target.offsetWidth;
-                // Agregar la clase nuevamente
-                entry.target.classList.add('slide-animation-down');
-            }
-        });
-    }, {
-        root: null,
-        rootMargin: '-10% 0px',
-        threshold: 0.1
-    });
-
-    // Observer para las secciones
+    // Observer simplificado para las secciones
     const sectionObserver = new IntersectionObserver((entries) => {
         const scrollDirection = getScrollDirection();
         
         entries.forEach(entry => {
             const element = entry.target;
             
+            // Si el elemento entra en el viewport
             if (entry.isIntersecting) {
+                requestAnimationFrame(() => {
+                    // Reiniciar la animación removiendo las clases
+                    element.classList.remove('slide-animation-up', 'slide-animation-down');
+                    // Forzar reflow
+                    void element.offsetWidth;
+                    // Aplicar la nueva animación
+                    element.classList.add(scrollDirection === 'down' ? 
+                        'slide-animation-down' : 'slide-animation-up');
+                });
+            } else {
+                // Cuando sale del viewport, remover las clases para preparar la siguiente animación
                 element.classList.remove('slide-animation-up', 'slide-animation-down');
-                void element.offsetWidth;
-                
-                element.classList.add(scrollDirection === 'down' ? 
-                    'slide-animation-down' : 'slide-animation-up');
             }
         });
     }, {
         root: null,
-        rootMargin: '100px',
-        threshold: 0.1
+        rootMargin: '10px',
+        threshold: 0
     });
 
-    // Observar secciones
-    sectionsToAnimate.forEach(section => sectionObserver.observe(section));
+    // Observer simplificado para el footer
+    const footerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const element = entry.target;
+            
+            if (entry.isIntersecting) {
+                requestAnimationFrame(() => {
+                    // Reiniciar la animación
+                    element.classList.remove('slide-animation-down');
+                    void element.offsetWidth;
+                    element.classList.add('slide-animation-down');
+                });
+            } else {
+                // Preparar para la siguiente animación
+                element.classList.remove('slide-animation-down');
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '10px',
+        threshold: 0
+    });
 
-    // Observar footer
+    // Observar elementos
+    sectionsToAnimate.forEach(section => {
+        sectionObserver.observe(section);
+    });
+
     if (footerToAnimate) {
         footerObserver.observe(footerToAnimate);
     }
 
-    // Mejorar el manejo de clics en los enlaces de navegación
+    // Navegación mejorada
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -119,24 +131,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                targetElement.classList.remove('slide-animation-up', 'slide-animation-down');
-                void targetElement.offsetWidth;
-                
-                targetElement.classList.add('slide-animation-down');
-                
-                const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                
-                window.scrollTo({
-                    top: elementPosition,
-                    behavior: 'smooth'
+                requestAnimationFrame(() => {
+                    // Reiniciar la animación
+                    targetElement.classList.remove('slide-animation-up', 'slide-animation-down');
+                    void targetElement.offsetWidth;
+                    targetElement.classList.add('slide-animation-down');
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
                 });
             }
         });
     });
 
     // Activar animaciones de imágenes
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
+    document.querySelectorAll('img').forEach(img => {
         img.classList.add('floating-image');
     });
 
