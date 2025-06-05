@@ -398,3 +398,14 @@
 - El video se pausa automáticamente cuando la sección correspondiente sale del viewport (al hacer scroll fuera de la sección).
 - El botón de play y el overlay siempre quedan perfectamente alineados con el video y no tienen animación lateral continua.
 - Mejoras en la experiencia de usuario y en el rendimiento visual de la página.
+
+## Cambios Recientes
+
+### Mejoras en la Reproducción de Videos (Última actualización)
+- Implementado sistema mejorado de control de reproducción de videos
+- El botón de play ahora desaparece completamente durante la reproducción
+- Mejorada la transición del overlay al aparecer/desaparecer
+- Agregado sistema que pausa automáticamente otros videos cuando uno comienza a reproducirse
+- Implementado manejo de errores para la reproducción de videos
+- Optimizado el comportamiento del overlay y botón de play
+- Mejorada la experiencia de usuario al interactuar con los videos
