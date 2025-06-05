@@ -170,6 +170,8 @@ img {
   backface-visibility: hidden;
   transform: translateZ(0);
   -webkit-font-smoothing: subpixel-antialiased;
+  animation: moveSideways 6s linear infinite;
+  position: relative;
 }
 
 img:hover {
@@ -339,14 +341,22 @@ footer a:hover {
 
 /* Animación de flotación vertical */
 @keyframes floatY {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(0, var(--float-distance), 0); }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 /* Animación de flotación horizontal */
 @keyframes floatX {
-  from { transform: translateX(0); }
-  to { transform: translateX(var(--float-distance)); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* Animación de entrada: Fade In Up */
@@ -502,12 +512,7 @@ footer.slide-animation-up {
 
 /* Animación flotante para imágenes */
 .floating-image {
-    animation: float var(--float-speed) ease-in-out infinite;
-    transition: transform 0.3s ease-in-out;
-}
-
-.floating-image:hover {
-    transform: scale(1.05) translateY(-5px);
+  animation: none !important;
 }
 
 /* Keyframes optimizados con easing mejorado */
@@ -976,4 +981,72 @@ p, li, a, address {
   .lazy-image {
     max-width: 100%;
   }
+}
+
+@keyframes moveSideways {
+  0% {
+    transform: translateX(-50px);
+  }
+  50% {
+    transform: translateX(50px);
+  }
+  100% {
+    transform: translateX(-50px);
+  }
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 50px auto 30px auto;
+  border-radius: 16px;
+  box-shadow: 0 0 25px 10px rgba(0, 229, 255, 0.25);
+  animation: moveSideways 6s linear infinite;
+  position: relative;
+  opacity: 1;
+  width: 600px;
+  height: 400px;
+  object-fit: cover;
+  background-color: transparent;
+}
+
+video:hover {
+  transform: scale(1.02);
+}
+
+/* Ajustes responsivos para videos */
+@media (max-width: 768px) {
+  video {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    max-height: 333px;
+  }
+}
+
+@media (max-width: 480px) {
+  video {
+    max-width: 100%;
+    max-height: 267px;
+  }
+}
+
+.lazy-video {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.lazy-video.loaded {
+  opacity: 1;
+}
+
+/* Ajustes específicos para los controles del video */
+video::-webkit-media-controls-panel {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+}
+
+video::-webkit-media-controls {
+  background-color: transparent;
 }

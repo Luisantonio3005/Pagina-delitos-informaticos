@@ -119,6 +119,32 @@
   * Reflow controlado
   * Animaciones basadas en transform
 
+### Paso 12: Implementación y Optimización de Videos
+* Se agregaron videos debajo de cada imagen correspondiente:
+  * Tamaño: 600x400 píxeles
+  * Controles de reproducción nativos
+  * Vista previa usando la imagen correspondiente como poster
+  * Carga diferida con preload="metadata"
+
+* Características de los videos:
+  * Animación de movimiento lateral continuo
+  * Espaciado de 50px respecto a las imágenes
+  * Reproducción automática pausada hasta interacción del usuario
+  * Sistema de pausa automática entre videos (solo uno reproduce a la vez)
+  * Fondo transparente con controles semitransparentes
+
+* Optimizaciones de video:
+  * Carga diferida para mejor rendimiento
+  * Vista previa con imágenes estáticas
+  * Controles personalizados con fondo semitransparente
+  * Responsive design adaptado a diferentes tamaños de pantalla
+
+* Sistema de reproducción:
+  * Control automático de reproducción entre videos
+  * Pausa automática de otros videos al iniciar uno nuevo
+  * Mantenimiento de la animación lateral durante la reproducción
+  * Controles nativos del navegador para mejor compatibilidad
+
 ### Estado Actual
 
 #### Sistema de Animaciones Unificado
@@ -300,3 +326,25 @@
 * Mejor rendimiento en móviles
 * Transiciones suaves y profesionales
 * Optimización de recursos del sistema
+
+### Estado Actual de Videos e Imágenes
+* Imágenes:
+  * Tamaño: 400x400 píxeles
+  * Animación de movimiento lateral suave
+  * Efecto de escala al hover
+  * Sombra con brillo azul neón
+
+* Videos:
+  * Tamaño: 600x400 píxeles
+  * Vista previa con imagen correspondiente
+  * Animación lateral continua
+  * Sistema de reproducción controlado
+  * Espaciado optimizado respecto a imágenes
+
+* Responsive:
+  * Videos:
+    * 768px+: 500px de ancho máximo
+    * 480px+: Ancho completo adaptativo
+  * Imágenes:
+    * Mantienen proporción en todos los tamaños
+    * Adaptación fluida a diferentes dispositivos

@@ -3,6 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Esto permite que el CSS controle las animaciones solo cuando JS está presente
     document.body.classList.add('js-ready');
 
+    // Control de reproducción de videos
+    const videos = document.querySelectorAll('video');
+    
+    videos.forEach(video => {
+        video.addEventListener('play', () => {
+            // Pausar todos los demás videos
+            videos.forEach(otherVideo => {
+                if (otherVideo !== video) {
+                    otherVideo.pause();
+                }
+            });
+        });
+    });
+
     // Seleccionar las secciones y el footer
     const elementsToAnimate = [...document.querySelectorAll('section'), document.querySelector('footer')];
 
@@ -98,11 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
-    });
-
-    // Activar animaciones de imágenes
-    document.querySelectorAll('img').forEach(img => {
-        img.classList.add('floating-image');
     });
 
     // Opcional: Resetear las animaciones cuando el usuario vuelve al principio
