@@ -5,13 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Control de reproducción de videos
     const videos = document.querySelectorAll('video');
-    
+
     videos.forEach(video => {
+        // Ocultar controles inicialmente
+        video.removeAttribute('controls');
+
         video.addEventListener('play', () => {
             // Pausar todos los demás videos
             videos.forEach(otherVideo => {
                 if (otherVideo !== video) {
                     otherVideo.pause();
+                    otherVideo.removeAttribute('controls');
+                    otherVideo.closest('.video-wrapper').classList.remove('playing');
                 }
             });
         });
@@ -45,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para animar elementos inicialmente visibles
     const animateInitialVisibleElements = () => {
         const viewportHeight = window.innerHeight;
-        
+
         elementsToAnimate.forEach((element, index) => {
             const rect = element.getBoundingClientRect();
             // Si el elemento está en el viewport inicial
@@ -69,10 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Observer unificado para secciones y footer
     const observer = new IntersectionObserver((entries) => {
         const scrollDirection = getScrollDirection();
-        
+
         entries.forEach(entry => {
             const element = entry.target;
-            
+
             if (entry.isIntersecting) {
                 requestAnimationFrame(() => {
                     // Remover clases anteriores
@@ -80,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Forzar reflow
                     void element.offsetWidth;
                     // Aplicar nueva animación
-                    element.classList.add(scrollDirection === 'down' ? 
+                    element.classList.add(scrollDirection === 'down' ?
                         'slide-animation-down' : 'slide-animation-up');
                 });
             } else {
@@ -125,21 +130,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Optimización de carga de imágenes
     const lazyImages = document.querySelectorAll('.lazy-image');
-    
+
     // Configuración del Intersection Observer
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                
+
                 // Precarga la imagen
                 const tempImage = new Image();
                 tempImage.src = img.src;
-                
+
                 tempImage.onload = () => {
                     img.classList.add('loaded');
                 };
-                
+
                 observer.unobserve(img);
             }
         });
@@ -147,9 +152,52 @@ document.addEventListener('DOMContentLoaded', () => {
         rootMargin: '50px 0px',
         threshold: 0.01
     });
-    
+
     // Observa todas las imágenes lazy
     lazyImages.forEach(img => {
         imageObserver.observe(img);
+    });
+
+    // --- Video Play Overlay Custom ---
+    document.querySelectorAll('.video-wrapper').forEach(wrapper => {
+        const overlay = wrapper.querySelector('.video-overlay');
+        const video = wrapper.querySelector('video');
+
+        overlay.addEventListener('click', () => {
+            video.setAttribute('controls', '');
+            video.play();
+            wrapper.classList.add('playing');
+        });
+
+        video.addEventListener('pause', () => {
+            video.removeAttribute('controls');
+            wrapper.classList.remove('playing');
+        });
+
+        // Si el video termina, quitar controles y mostrar overlay
+        video.addEventListener('ended', () => {
+            video.removeAttribute('controls');
+            wrapper.classList.remove('playing');
+            video.currentTime = 0; // Resetear el video al inicio
+        });
+    });
+
+    // --- Pausar video al salir del viewport ---
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (!entry.isIntersecting) {
+                if (!video.paused) {
+                    video.pause();
+                    video.removeAttribute('controls');
+                    video.closest('.video-wrapper').classList.remove('playing');
+                }
+            }
+        });
+    }, { threshold: 0 });
+
+    // Observar cada video individualmente
+    videos.forEach(video => {
+        videoObserver.observe(video);
     });
 });

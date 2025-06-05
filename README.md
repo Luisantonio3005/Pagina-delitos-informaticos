@@ -145,6 +145,30 @@
   * Mantenimiento de la animación lateral durante la reproducción
   * Controles nativos del navegador para mejor compatibilidad
 
+### Paso 13: Optimización del Sistema de Videos
+* Se implementó un nuevo sistema de reproducción de videos:
+  * Videos sin controles inicialmente, solo mostrando el botón de reproducción
+  * Pausa automática cuando el video sale del viewport
+  * Solo un video puede reproducirse a la vez
+  * Los videos vuelven al inicio cuando terminan
+
+* Mejoras en la interfaz de video:
+  * Botón de reproducción más visible y atractivo
+  * Overlay semi-transparente para mejor contraste
+  * Transiciones suaves al interactuar
+  * Diseño responsivo adaptado a diferentes pantallas
+
+* Optimizaciones de rendimiento:
+  * Carga diferida de videos
+  * Pausa automática al salir del viewport
+  * Eliminación de animaciones innecesarias en los videos
+  * Mejor manejo de recursos
+
+* Separación de animaciones:
+  * Solo las imágenes mantienen la animación de movimiento lateral
+  * Los videos y sus elementos permanecen estáticos
+  * Mejor experiencia visual y rendimiento
+
 ### Estado Actual
 
 #### Sistema de Animaciones Unificado
@@ -181,6 +205,25 @@
   * h1: 36px
   * h2: 28px (general) y 26px (en fuentes)
   * h3: 24px
+
+#### Sistema de Videos
+* Reproducción:
+  * Control automático de reproducción
+  * Pausa al salir del viewport
+  * Reinicio al terminar
+  * Solo un video activo a la vez
+
+* Interfaz:
+  * Botón de reproducción centrado
+  * Overlay semi-transparente
+  * Controles visibles solo durante la reproducción
+  * Diseño responsivo
+
+* Optimizaciones:
+  * Carga diferida
+  * Pausa automática
+  * Sin animaciones innecesarias
+  * Mejor rendimiento
 
 ### Tecnologías Implementadas
 * HTML5
@@ -348,3 +391,10 @@
   * Imágenes:
     * Mantienen proporción en todos los tamaños
     * Adaptación fluida a diferentes dispositivos
+
+### Cambios recientes
+
+- Solo las imágenes tienen animación lateral continua (moveSideways). Los videos y sus overlays permanecen fijos y solo se deslizan con la sección al aparecer/desaparecer.
+- El video se pausa automáticamente cuando la sección correspondiente sale del viewport (al hacer scroll fuera de la sección).
+- El botón de play y el overlay siempre quedan perfectamente alineados con el video y no tienen animación lateral continua.
+- Mejoras en la experiencia de usuario y en el rendimiento visual de la página.
