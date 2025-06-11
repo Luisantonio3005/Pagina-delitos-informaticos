@@ -24,6 +24,13 @@
         </nav>
     </header>
 
+    <div class="zoom-controls">
+        <button id="zoom-in" title="Acercar">+</button>
+        <div class="zoom-level">100%</div>
+        <button id="zoom-out" title="Alejar">-</button>
+        <button id="zoom-reset" title="Restablecer zoom">↺</button>
+    </div>
+
     <div class="animation-container">
         <main>
             <section id="introduccion">
@@ -179,6 +186,63 @@
         </footer>
     </div>
     <script src="script.js" defer></script>
+    <script>
+        // Zoom controls functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomIn = document.getElementById('zoom-in');
+            const zoomOut = document.getElementById('zoom-out');
+            const zoomReset = document.getElementById('zoom-reset');
+            const zoomLevel = document.querySelector('.zoom-level');
+            let currentZoom = 100;
+
+            // Guardar los tamaños originales de fuente
+            const originalSizes = new Map();
+            const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, a, span, div:not(.zoom-controls):not(.video-wrapper):not(.video-overlay)');
+
+            textElements.forEach(element => {
+                if (!element.closest('img') && !element.closest('video')) {
+                    originalSizes.set(element, window.getComputedStyle(element).fontSize);
+                }
+            });
+
+            function updateZoom() {
+                textElements.forEach(element => {
+                    if (!element.closest('img') && !element.closest('video')) {
+                        const originalSize = originalSizes.get(element);
+                        const baseSize = parseFloat(originalSize);
+                        element.style.fontSize = `${baseSize * (currentZoom / 100)}px`;
+                    }
+                });
+
+                zoomLevel.textContent = `${currentZoom}%`;
+            }
+
+            zoomIn.addEventListener('click', () => {
+                if (currentZoom < 200) {
+                    currentZoom += 10;
+                    updateZoom();
+                }
+            });
+
+            zoomOut.addEventListener('click', () => {
+                if (currentZoom > 25) {
+                    currentZoom -= 10;
+                    updateZoom();
+                }
+            });
+
+            zoomReset.addEventListener('click', () => {
+                currentZoom = 100;
+                // Restaurar tamaños originales
+                textElements.forEach(element => {
+                    if (!element.closest('img') && !element.closest('video')) {
+                        element.style.fontSize = originalSizes.get(element);
+                    }
+                });
+                zoomLevel.textContent = `${currentZoom}%`;
+            });
+        });
+    </script>
 </body>
 
 </html>
