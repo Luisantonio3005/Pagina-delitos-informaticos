@@ -394,10 +394,7 @@
 
 ### Cambios recientes
 
-- Solo las imágenes tienen animación lateral continua (moveSideways). Los videos y sus overlays permanecen fijos y solo se deslizan con la sección al aparecer/desaparecer.
-- El video se pausa automáticamente cuando la sección correspondiente sale del viewport (al hacer scroll fuera de la sección).
-- El botón de play y el overlay siempre quedan perfectamente alineados con el video y no tienen animación lateral continua.
-- Mejoras en la experiencia de usuario y en el rendimiento visual de la página.
+- **Animación del footer**: Se ha simplificado la animación del footer para que sea estable y sin bugs. Ahora solo usa opacidad (fade-in) al entrar en el viewport, sin transformaciones ni cambios de posición, evitando así la aparición de barras dobles de scroll. La animación se reinicia cada vez que el footer entra en el viewport, garantizando una experiencia fluida y sin parpadeos.
 
 ## Cambios Recientes
 
