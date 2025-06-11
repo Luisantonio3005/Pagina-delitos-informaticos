@@ -109,6 +109,22 @@ header {
     /* Sombra con color neón */
 }
 
+header h1 {
+    transition: font-size 0.3s ease;
+}
+
+header nav ul li,
+header nav ul li a {
+    font-size: 1em;
+    /* Igual que el resto de la página */
+    transition: font-size 0.3s ease;
+}
+
+nav {
+    position: relative;
+    width: 100%;
+}
+
 nav ul {
     list-style: none;
     padding: 0;
@@ -151,7 +167,6 @@ nav ul li a:hover {
 main {
     padding: 24px;
     max-width: 90%;
-    /* Cambiado de 1200px a 90% para ocupar más espacio */
     margin: 0 auto;
     background-color: var(--bg-section);
     box-shadow: 0 0 18px rgba(0, 229, 255, 0.1);
@@ -162,6 +177,10 @@ main {
 }
 
 section {
+    min-height: fit-content;
+    height: auto;
+    overflow: visible;
+    position: relative;
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
@@ -171,13 +190,10 @@ section {
     margin-bottom: 32px;
     padding: 22px;
     transform: translateX(0);
-    position: relative;
-    z-index: 1;
-    will-change: transform;
-    opacity: 1;
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: transform, opacity;
     backface-visibility: hidden;
     perspective: 1000px;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 img {
@@ -223,8 +239,8 @@ h3 {
 }
 
 h1 {
-    font-size: 36px;
-    /* Reducido en 4px */
+    font-size: 2em;
+    transition: font-size 0.3s ease;
 }
 
 h2 {
@@ -787,17 +803,26 @@ footer.slide-animation-up {
 
 .animation-container {
     position: relative;
-    overflow: hidden;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 
-/* Ensure all text elements have consistent size */
+/* Base styles for text elements */
 
 p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 li,
 a,
-address {
-    font-size: 22px;
+span {
+    transition: font-size 0.3s ease;
+    transform-origin: top left;
 }
 
 
@@ -1440,4 +1465,220 @@ img.lazy-image {
     .play-icon::before {
         border-width: 12px 0 12px 20px;
     }
+}
+
+
+/* Zoom Control Menu Styles */
+
+.zoom-controls {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--bg-nav);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px !important;
+    transform: none !important;
+}
+
+.zoom-controls button {
+    background-color: rgba(0, 229, 255, 0.1);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em !important;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: none !important;
+}
+
+.zoom-controls button:hover {
+    background-color: rgba(0, 229, 255, 0.2);
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--glow-intense);
+}
+
+.zoom-controls .zoom-level {
+    color: var(--text-main);
+    text-align: center;
+    font-size: 0.9em !important;
+    margin: 5px 0;
+    transform: none !important;
+}
+
+
+/* Responsive adjustments for zoom controls */
+
+@media (max-width: 768px) {
+    .zoom-controls {
+        right: 10px;
+        padding: 10px;
+    }
+    .zoom-controls button {
+        width: 35px;
+        height: 35px;
+        font-size: 1em;
+    }
+}
+
+
+/* Ensure sections maintain their size */
+
+section {
+    min-height: fit-content;
+    height: auto;
+    overflow: visible;
+}
+
+
+/* Ensure images and videos maintain their size */
+
+img,
+video,
+.video-wrapper {
+    transform: none !important;
+    transition: none !important;
+    position: relative;
+}
+
+
+/* Ensure zoom controls stay on top */
+
+.zoom-controls {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--bg-nav);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px !important;
+    transform: none !important;
+}
+
+
+/* Ensure navigation maintains its size */
+
+nav,
+nav ul,
+nav ul li,
+nav ul li a {
+    font-size: 16px !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+
+/* Ensure header maintains position and size */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--bg-header);
+    width: 100%;
+}
+
+header h1 {
+    font-size: 36px !important;
+    transform: none !important;
+}
+
+
+/* Ensure sections maintain their size and allow scrolling */
+
+section {
+    min-height: fit-content;
+    height: auto;
+    overflow: visible;
+    position: relative;
+}
+
+
+/* Ensure content container allows scrolling */
+
+.animation-container {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+/* Ensure zoom controls stay on top and maintain size */
+
+.zoom-controls {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--bg-nav);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px !important;
+    transform: none !important;
+}
+
+.zoom-controls button {
+    font-size: 1.2em !important;
+    transform: none !important;
+}
+
+.zoom-controls .zoom-level {
+    font-size: 0.9em !important;
+    transform: none !important;
+}
+
+
+/* Unificar tamaño de enlaces en header y secciones */
+
+ul li a {
+    font-size: 1em;
+    transition: font-size 0.3s ease;
+    white-space: nowrap;
+}
+
+
+/* Asegurar que no haya sobrescritura en el header */
+
+nav ul li a,
+header nav ul li a {
+    font-size: inherit;
+}
+
+
+/* Hacer que el h1 escale igual que el resto */
+
+h1 {
+    font-size: 2em;
+    transition: font-size 0.3s ease;
+}
+
+
+/* Forzar tamaño correcto para los enlaces del header */
+
+nav ul li a {
+    font-size: 22px !important;
 }
