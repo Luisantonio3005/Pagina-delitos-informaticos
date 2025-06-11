@@ -320,4 +320,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         videos.forEach(video => observer.observe(video));
     }
+
+    // --- Animación de fade-in para el footer al entrar en viewport (estable y sin bugs) ---
+    const footerEl = document.querySelector('footer');
+    if (footerEl) {
+        // Asegura que el footer inicia invisible
+        footerEl.classList.remove('slide-animation-down');
+        footerEl.style.opacity = '0';
+
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    footerEl.classList.remove('slide-animation-up');
+                    void footerEl.offsetWidth;
+                    footerEl.classList.add('slide-animation-down');
+                } else {
+                    footerEl.classList.remove('slide-animation-down');
+                    footerEl.style.opacity = '0';
+                }
+            });
+        }, { threshold: 0.1 });
+        footerObserver.observe(footerEl);
+    }
 });
